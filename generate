@@ -20,6 +20,8 @@ doc, tag, text = Doc().tagtext()
 
 
 with tag("html"):
+    with tag("head"):
+        doc.stag('meta', charset="UTF-8")
     with tag("body"):
         with tag("center"):
 
