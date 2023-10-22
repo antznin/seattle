@@ -38,9 +38,10 @@ with tag("html"):
                     fpath = Path(dname) / Path(fname)
                     if is_img(fpath):
                         print(f"Found image {fpath}")
-                        with tag('div', id='photo-container',
+                        with tag("div", id='photo-container',
                                  style="margin-bottom:3mm; margin-top:3mm"):
-                            doc.stag('img', src=str(fpath), width=700)
+                            with tag("a", href=str(fpath)):
+                                doc.stag('img', src=str(fpath), width=700)
 
 result = doc.getvalue()
 
