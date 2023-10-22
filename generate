@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+
+import os
+import glob
+
+from yattag import Doc
+from pathlib import Path
+
+
+IMG_PATH = "images"
+
+
+def is_img(path: Path) -> bool:
+    accepted = (".jpg", ".jpeg", ".png", ".gif")
+    return path.suffix.lower() in accepted
+
+
+doc, tag, text = Doc().tagtext()
+
+
+with tag("html"):
+    with tag("body"):
+        with tag("center"):
+
+            dirs = glob.glob(IMG_PATH + "/*")
+            dirs.sort(key=os.path.getmtime, reverse=True)
+
+            for dname in dirs:
+                for fname in os.listdir(dname):
+
+                    with tag("h2"):
+                        text(dname[7:])  # Strip images/
+
+                    fpath = Path(dname) / Path(fname)
+                    if is_img(fpath):
+                        print(f"Found image {fpath}")
+                        with tag('div', id='photo-container'):
+                            doc.stag('img', src=str(fpath), width=700)
+
+result = doc.getvalue()
+
+with open("index.html", "w") as f:
+    f.write(result)
