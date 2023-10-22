@@ -29,10 +29,11 @@ with tag("html"):
             dirs.sort(key=os.path.getmtime, reverse=True)
 
             for dname in dirs:
-                for fname in os.listdir(dname):
 
-                    with tag("h2"):
-                        text(dname[7:])  # Strip images/
+                with tag("h2"):
+                    text(dname[7:])  # Strip images/
+
+                for fname in os.listdir(dname):
 
                     fpath = Path(dname) / Path(fname)
                     if is_img(fpath):
