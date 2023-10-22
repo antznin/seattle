@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+echo Wait for events...
+inotifywait --recursive --quiet --event create --event delete images
+
+echo Re-polling...
+while inotifywait --recursive --quiet --event create --event delete --timeout 20 images; do
+  echo Got new event. Re-polling...
+done
+
+echo Generate index
+./generate index.html
