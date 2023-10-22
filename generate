@@ -33,7 +33,7 @@ with tag("html"):
                 with tag("h2"):
                     text(dname[7:])  # Strip images/
 
-                for fname in os.listdir(dname):
+                for fname in sorted(os.listdir(dname)):
 
                     fpath = Path(dname) / Path(fname)
                     if is_img(fpath):
