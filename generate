@@ -4,7 +4,7 @@ import glob
 import os
 import sys
 
-from yattag import Doc
+from yattag.doc import Doc
 from pathlib import Path
 
 
@@ -27,12 +27,13 @@ with tag("html"):
         with tag("center"):
 
             dirs = glob.glob(IMG_PATH + "/*")
-            dirs.sort(key=os.path.getmtime, reverse=True)
+            dirs.sort(key=os.path.basename, reverse=True)
 
-            for dname in dirs:
+            len_dirs = len(dirs)
+            for i, dname in enumerate(dirs):
 
                 with tag("h2"):
-                    text(dname[7:])  # Strip images/
+                    text(dname[10:])  # Strip images/xxx where xxx is a number
 
                 for fname in sorted(os.listdir(dname)):
 
@@ -43,6 +44,9 @@ with tag("html"):
                                  style="margin-bottom:3mm; margin-top:3mm"):
                             with tag("a", href=str(fpath)):
                                 doc.stag('img', src=str(fpath), width=700)
+
+                if i < len_dirs - 1:
+                    doc.stag("hr", klass="solid")
 
 result = doc.getvalue()
 
