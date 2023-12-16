@@ -1,0 +1,9 @@
+body {
+  background-color: #fffafa;
+}
+
+hr.solid {
+  margin-top: 1.5cm;
+  border: 1px solid #dcdcdc;
+  width: 100%;
+}
